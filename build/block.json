@@ -1,0 +1,38 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "hardip/sample-block",
+  "version": "0.1.0",
+  "title": "Sample block",
+  "category": "widgets",
+  "icon": "smiley",
+  "description": "Example block scaffolded with Create Block tool.",
+  "example": {},
+  "attributes": {
+    "postsStyles": {
+      "type": "object",
+      "default": {
+        "postsLayout": "grid"
+      }
+    },
+    "postsSettings": {
+      "type": "object",
+      "default": {
+        "search": "",
+        "perPage": 10,
+        "currentPage": 1,
+        "order": "desc",
+        "orderBy": "date"
+      }
+    }
+  },
+  "supports": {
+    "html": false
+  },
+  "textdomain": "sample-block",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "render": "file:./render.php",
+  "viewScript": "file:./view.js"
+}
