@@ -6,6 +6,243 @@
  *
  * Replace them with your own styles or remove the file completely.
  */
-.wp-block-hardip-sample-block {
-  border: 1px dotted #f00;
+:root {
+  --secondary-color: #f28a52;
+  --gridlist-item-reveal-bg: #46464a;
+  --cells: 3;
+}
+
+.gridlist {
+  padding: 15px;
+  display: flex;
+  flex-flow: row wrap;
+}
+.gridlist .item {
+  margin: 10px;
+  transition: width 0.3s ease;
+}
+.gridlist .item .item-container {
+  display: flex;
+  width: 100%;
+  position: relative;
+  color: inherit;
+  background-color: #fff;
+  border-radius: 3px;
+  box-shadow: 0 1px 2px rgba(43, 59, 93, 0.29);
+  transition: all 0.2s ease-in-out;
+}
+.gridlist .item .item-container:after {
+  transition: all 0.3s ease-in-out;
+}
+.gridlist .item .item-container .item-cover {
+  flex: 0;
+}
+.gridlist .item .item-container .item-cover .avatar {
+  width: 92px;
+  height: 92px;
+  margin: 0 auto;
+  position: relative;
+  border-radius: 100%;
+  border: 1px solid rgba(120, 130, 140, 0.13);
+  padding: 5px;
+}
+.gridlist .item .item-container .item-cover .avatar div,
+.gridlist .item .item-container .item-cover .avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.gridlist .item .item-container .item-content {
+  flex: 1;
+  padding: 1.75rem;
+}
+.gridlist .item .item-container .item-content .subhead-1 {
+  color: inherit;
+  text-decoration: none;
+}
+.gridlist .item .item-container .item-content .subhead-1:hover {
+  cursor: pointer;
+}
+.gridlist .item .item-container .item-content small {
+  color: #aaa;
+  text-transform: lowercase;
+}
+.gridlist .item .item-reveal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  color: #eceef1;
+  background-color: var(--gridlist-item-reveal-bg);
+  transition: all 0.2s ease-in-out;
+}
+.gridlist .item .item-reveal i {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 18px;
+  cursor: pointer;
+}
+.gridlist .item .item-reveal i:hover {
+  opacity: 0.9;
+}
+.gridlist .item.is-collapsed .item-container:after {
+  content: "";
+  opacity: 0;
+}
+.gridlist .item.is-collapsed .item-reveal {
+  max-height: 0;
+  min-height: 0;
+  overflow: hidden;
+  margin-top: 0;
+  opacity: 0;
+}
+.gridlist .item.is-expanded .item-container {
+  color: rgba(255, 255, 255, 0.57);
+  background-color: var(--secondary-color);
+}
+.gridlist .item.is-expanded .item-container .subhead-1 {
+  color: #fff;
+}
+.gridlist .item.is-expanded .item-container small {
+  color: inherit;
+}
+.gridlist .item.is-expanded .item-container:after {
+  content: "";
+  opacity: 1;
+  display: block;
+  height: 0;
+  width: 0;
+  position: absolute;
+  bottom: -20px;
+  right: calc(50% - 15px);
+  border-right: 15px solid transparent;
+  border-left: 15px solid transparent;
+  border-bottom: 15px solid var(--gridlist-item-reveal-bg);
+}
+.gridlist .item.is-expanded .item-reveal {
+  max-height: 1000px;
+  min-height: 200px;
+  overflow: visible;
+  margin-top: 20px;
+  opacity: 1;
+}
+.gridlist .item.is-expanded:hover .item-container {
+  transform: scale(1);
+}
+.gridlist .item.is-inactive .item-container {
+  pointer-events: none;
+  opacity: 0.5;
+  color: inherit;
+}
+.gridlist .item.is-inactive:hover .item-container {
+  background-color: #d3d3d3;
+  transform: scale(1);
+}
+.gridlist .item.is-inactive:hover .item-container .subhead-1,
+.gridlist .item.is-inactive:hover .item-container small {
+  color: red !important;
+}
+.gridlist .item:hover .item-container {
+  color: rgba(255, 255, 255, 0.57);
+  background-color: var(--secondary-color);
+  transform: scale(1.05);
+}
+.gridlist .item:hover .item-container .subhead-1 {
+  color: #fff;
+}
+.gridlist .item:hover .item-container small {
+  color: inherit;
+}
+
+.gridlist.gridview .item {
+  width: calc(100% / var(--cells) - 20px);
+}
+.gridlist.gridview .item .item-container {
+  flex-direction: column;
+  text-align: center;
+  padding: 1.75rem 0;
+}
+.gridlist.gridview .item .item-container .item-cover {
+  width: 100%;
+  max-height: 120px;
+}
+
+@media screen and (max-width: 991px) {
+  .gridlist.gridview .item {
+    width: calc(50% - 20px);
+  }
+}
+@media screen and (max-width: 767px) {
+  .gridlist.gridview .item {
+    width: 100%;
+  }
+}
+@media screen and (min-width: 992px) {
+  .gridlist.gridview .item:nth-of-type(3n+2) .item-reveal {
+    margin-right: calc(-100% - 30px);
+  }
+  .gridlist.gridview .item:nth-of-type(3n+3) .item-reveal {
+    margin-right: calc(-200% - 60px);
+  }
+  .gridlist.gridview .item:nth-of-type(3n+4) {
+    clear: right;
+  }
+  .gridlist.gridview .item-reveal {
+    width: calc(300% + 60px);
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 991px) {
+  .gridlist.gridview .item:nth-of-type(2n + 2) .item-reveal {
+    margin-right: calc(-100% - 20px);
+  }
+  .gridlist.gridview .item:nth-of-type(2n + 3) {
+    clear: right;
+  }
+  .gridlist.gridview .item-reveal {
+    width: calc(200% + 20px);
+  }
+}
+.gridlist.listview .item {
+  width: 100%;
+}
+.gridlist.listview .item .item-container {
+  flex-direction: row;
+  align-items: center;
+  padding: 0 1.75rem;
+}
+.gridlist.listview .item .item-container .item-cover {
+  height: 100%;
+  max-width: 120px;
+  margin-left: 1.75rem;
+}
+
+@media screen and (min-width: 992px) {
+  .gridlist.listview .item:nth-of-type(3n + 2) .item-reveal {
+    margin-right: 0;
+  }
+  .gridlist.listview .item:nth-of-type(3n + 3) .item-reveal {
+    margin-right: 0;
+  }
+  .gridlist.listview .item:nth-of-type(3n + 4) {
+    clear: right;
+  }
+  .gridlist.listview .item-reveal {
+    width: 100%;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 991px) {
+  .gridlist.listview .item:nth-of-type(2n + 2) .item-reveal {
+    margin-right: 0;
+  }
+  .gridlist.listview .item:nth-of-type(2n + 3) {
+    clear: right;
+  }
+  .gridlist.listview .item-reveal {
+    width: 100%;
+  }
 }

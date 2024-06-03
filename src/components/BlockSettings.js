@@ -25,58 +25,40 @@ const BlockSettings = () => {
                             }
                         } ) }/>
                 </PanelRow>
+
                 <PanelRow>
                     <SelectControl
-                        label={ __( 'Type', 'sample-block' ) }
+                        label={ __( 'Order', 'sample-block' ) }
                         options={ [
-                            { value: '', label: __( 'Select', 'sample-block' ) },
-                            { value: 'newest', label: __( 'Newest', 'sample-block' ) },
-                            { value: 'popular', label: __( 'Popular', 'sample-block' ) },
-                            { value: 'active', label: __( 'Active', 'sample-block' ) },
-                            { value: 'alphabetical', label: __( 'Alphabetical', 'sample-block' ) },
-                            { value: 'random', label: __( 'Random', 'sample-block' ) },
+                            { value: 'desc', label: __( 'Descending', 'sample-block' ) },
+                            { value: 'asc', label: __( 'Ascending', 'sample-block' ) },
                         ] }
-                        defaultValue=''
-                        onChange={ ( value ) => updateSettings( { postsSettings: { ...settings, type: value } } ) }
+                        onChange={ ( value ) => updateSettings( {
+                            postsSettings: {
+                                ...settings,
+                                order: value
+                            }
+                        } ) }
                     />
                 </PanelRow>
-                { settings.type === '' && (
-                    <>
-                        <PanelRow>
-                            <SelectControl
-                                label={ __( 'Order', 'sample-block' ) }
-                                options={ [
-                                    { value: 'desc', label: __( 'Descending', 'sample-block' ) },
-                                    { value: 'asc', label: __( 'Ascending', 'sample-block' ) },
-                                ] }
-                                onChange={ ( value ) => updateSettings( {
-                                    postsSettings: {
-                                        ...settings,
-                                        order: value
-                                    }
-                                } ) }
-                            />
-                        </PanelRow>
-                        <PanelRow>
-                            <SelectControl
-                                label={ __( 'Order By', 'sample-block' ) }
-                                options={ [
-                                    { value: 'date', label: __( 'Date', 'sample-block' ) },
-                                    { value: 'id', label: __( 'ID', 'sample-block' ) },
-                                    { value: 'name', label: __( 'Name', 'sample-block' ) },
-                                    { value: 'last_activity', label: __( 'Last Activity', 'sample-block' ) },
-                                    { value: 'total_member_count', label: __( 'Total Member Count', 'sample-block' ) },
-                                    { value: 'random', label: __( 'Random', 'sample-block' ) },
-                                ] }
-                                onChange={ ( value ) => updateSettings( {
-                                    postsSettings: {
-                                        ...settings,
-                                        orderBy: value
-                                    }
-                                } ) }
-                            />
-                        </PanelRow></>
-                ) }
+                <PanelRow>
+                    <SelectControl
+                        label={ __( 'Order By', 'sample-block' ) }
+                        options={ [
+                            { value: 'date', label: __( 'Date', 'sample-block' ) },
+                            { value: 'id', label: __( 'ID', 'sample-block' ) },
+                            { value: 'title', label: __( 'Title', 'sample-block' ) },
+                            { value: 'slug', label: __( 'Slug', 'sample-block' ) },
+                            { value: 'modified', label: __( 'Last Modified', 'sample-block' ) },
+                        ] }
+                        onChange={ ( value ) => updateSettings( {
+                            postsSettings: {
+                                ...settings,
+                                orderBy: value
+                            }
+                        } ) }
+                    />
+                </PanelRow>
 
                 <PanelRow>
                     <TextControl

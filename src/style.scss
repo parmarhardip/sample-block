@@ -5,8 +5,300 @@
  * Replace them with your own styles or remove the file completely.
  */
 
-.wp-block-hardip-sample-block {
-	background-color: #333333;
-	color: #fff;
-	padding: 2px;
+
+/**
+ * The following styles get applied inside the editor only.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+
+:root {
+  --secondary-color: #f28a52;
+  --gridlist-item-reveal-bg: #46464a;
+  --cells: 3;
+}
+
+.gridlist {
+  padding: 15px;
+  display: flex;
+  flex-flow: row wrap;
+
+  .item {
+    margin: 10px;
+    transition: width 0.3s ease;
+
+    .item-container {
+      display: flex;
+      width: 100%;
+      position: relative;
+      color: inherit;
+      background-color: #fff;
+      border-radius: 3px;
+      -webkit-box-shadow: 0 1px 2px rgba(43,59,93,.29);
+      box-shadow: 0 1px 2px rgba(43,59,93,.29);
+      transition: all 0.2s ease-in-out;
+
+      &:after {
+        transition: all 0.3s ease-in-out;
+      }
+
+      .item-cover {
+        flex: 0;
+        .avatar {
+          width: 92px;
+          height: 92px;
+          margin: 0 auto;
+          position: relative;
+          border-radius: 100%;
+          border: 1px solid rgba(120, 130, 140, 0.13);
+          padding: 5px;
+
+          div,
+          img {
+            width: 100%;
+            height: 100%;
+            border-radius: 100%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+          }
+        }
+      }
+
+      .item-content {
+        flex: 1;
+        padding: 1.75rem;
+        .subhead-1 {
+          color: inherit;
+          text-decoration: none;
+          &:hover {
+            cursor: pointer;
+          }
+        }
+
+        small {
+          color: #aaa;
+          text-transform: lowercase;
+        }
+      }
+    }
+
+    .item-reveal {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      width: 100%;
+      color: #eceef1;
+      background-color: var(--gridlist-item-reveal-bg);
+      transition: all 0.2s ease-in-out;
+
+      i {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 18px;
+        cursor: pointer;
+        &:hover {
+          opacity: 0.9;
+        }
+      }
+    }
+
+    &.is-collapsed {
+      .item-container {
+        &:after {
+          content: "";
+          opacity: 0;
+        }
+      }
+      .item-reveal {
+        max-height: 0;
+        min-height: 0;
+        overflow: hidden;
+        margin-top: 0;
+        opacity: 0;
+      }
+    }
+
+    &.is-expanded {
+      .item-container {
+        color: rgba(255, 255, 255, 0.57);
+        background-color: var(--secondary-color);
+
+        .subhead-1 {
+          color: #fff;
+        }
+        small {
+          color: inherit;
+        }
+        &:after {
+          content: "";
+          opacity: 1;
+          display: block;
+          height: 0;
+          width: 0;
+          position: absolute;
+          bottom: -20px;
+          left: calc(50% - 15px);
+          border-left: 15px solid transparent;
+          border-right: 15px solid transparent;
+          border-bottom: 15px solid var(--gridlist-item-reveal-bg);
+        }
+      }
+
+      .item-reveal {
+        max-height: 1000px;
+        min-height: 200px;
+        overflow: visible;
+        margin-top: 20px;
+        opacity: 1;
+      }
+
+      &:hover {
+        .item-container {
+          -webkit-transform: scale(1);
+          transform: scale(1);
+        }
+      }
+    }
+
+    &.is-inactive {
+      .item-container {
+        pointer-events: none;
+        opacity: 0.5;
+        color: inherit;
+      }
+
+      &:hover {
+        .item-container {
+          background-color: #d3d3d3;
+          -webkit-transform: scale(1);
+          transform: scale(1);
+
+          .subhead-1,
+          small {
+            color: red !important;
+          }
+        }
+      }
+    }
+
+    &:hover {
+      .item-container {
+        color: rgba(255, 255, 255, 0.57);
+        background-color: var(--secondary-color);
+        -webkit-transform: scale(1.05);
+        transform: scale(1.05);
+
+        .subhead-1 {
+          color: #fff;
+        }
+        small {
+          color: inherit;
+        }
+      }
+    }
+  }
+}
+
+.gridlist.gridview {
+  .item {
+    width: calc((100% / var(--cells)) - 20px);
+
+    .item-container {
+      flex-direction: column;
+      text-align: center;
+      padding: 1.75rem 0;
+
+      .item-cover {
+        width: 100%;
+        max-height: 120px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .gridlist.gridview .item {
+    width: calc((100% / 2) - 20px);
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .gridlist.gridview .item {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .gridlist.gridview .item:nth-of-type(3n+2) .item-reveal {
+    margin-left: calc(-100% - 30px);
+  }
+  .gridlist.gridview .item:nth-of-type(3n+3) .item-reveal {
+    margin-left: calc(-200% - 60px);
+  }
+  .gridlist.gridview .item:nth-of-type(3n+4) {
+    clear: left;
+  }
+  .gridlist.gridview .item-reveal {
+    width: calc(300% + 60px);
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 991px) {
+  .gridlist.gridview .item:nth-of-type(2n + 2) .item-reveal {
+    margin-left: calc(-100% - 20px);
+  }
+  .gridlist.gridview .item:nth-of-type(2n + 3) {
+    clear: left;
+  }
+  .gridlist.gridview .item-reveal {
+    width: calc(200% + 20px);
+  }
+}
+
+.gridlist.listview {
+  .item {
+    width: 100%;
+
+    .item-container {
+      flex-direction: row;
+      align-items: center;
+      padding: 0 1.75rem;
+
+      .item-cover {
+        height: 100%;
+        max-width: 120px;
+        margin-right: 1.75rem;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .gridlist.listview .item:nth-of-type(3n + 2) .item-reveal {
+    margin-left: 0;
+  }
+  .gridlist.listview .item:nth-of-type(3n + 3) .item-reveal {
+    margin-left: 0;
+  }
+  .gridlist.listview .item:nth-of-type(3n + 4) {
+    clear: left;
+  }
+  .gridlist.listview .item-reveal {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 991px) {
+  .gridlist.listview .item:nth-of-type(2n + 2) .item-reveal {
+    margin-left: 0;
+  }
+  .gridlist.listview .item:nth-of-type(2n + 3) {
+    clear: left;
+  }
+  .gridlist.listview .item-reveal {
+    width: 100%;
+  }
 }

@@ -29,6 +29,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 function hardip_sample_block_block_init() {
 	register_block_type( __DIR__ . '/build' );
 }
+
 add_action( 'init', 'hardip_sample_block_block_init' );
 
 add_action( 'enqueue_block_editor_assets', 'enqueue_block_editor_assets' );
@@ -51,3 +52,19 @@ function enqueue_block_editor_assets() {
 	);
 }
 
+
+
+/**
+ * Add custom fields to post response
+ *
+ * @param WP_REST_Response $response The response object.
+ * @param WP_Post          $post     Post object.
+ * @return WP_REST_Response
+ */
+function add_custom_fields_to_post( $response, $post ) {
+	$featured_img = get_the_post_thumbnail_url( $post->ID, 'full' );
+	$response->data['featured_img'] = $featured_img;
+
+	return $response;
+}
+add_filter( 'rest_prepare_post', 'add_custom_fields_to_post', 10, 2 );

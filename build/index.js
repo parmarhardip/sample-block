@@ -276,34 +276,6 @@ const BlockSettings = () => {
       }
     })
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelRow, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.SelectControl, {
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Type', 'sample-block'),
-    options: [{
-      value: '',
-      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Select', 'sample-block')
-    }, {
-      value: 'newest',
-      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Newest', 'sample-block')
-    }, {
-      value: 'popular',
-      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Popular', 'sample-block')
-    }, {
-      value: 'active',
-      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Active', 'sample-block')
-    }, {
-      value: 'alphabetical',
-      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Alphabetical', 'sample-block')
-    }, {
-      value: 'random',
-      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Random', 'sample-block')
-    }],
-    defaultValue: "",
-    onChange: value => updateSettings({
-      postsSettings: {
-        ...settings,
-        type: value
-      }
-    })
-  })), settings.type === '' && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelRow, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.SelectControl, {
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Order', 'sample-block'),
     options: [{
       value: 'desc',
@@ -327,17 +299,14 @@ const BlockSettings = () => {
       value: 'id',
       label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('ID', 'sample-block')
     }, {
-      value: 'name',
-      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Name', 'sample-block')
+      value: 'title',
+      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Title', 'sample-block')
     }, {
-      value: 'last_activity',
-      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Last Activity', 'sample-block')
+      value: 'slug',
+      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Slug', 'sample-block')
     }, {
-      value: 'total_member_count',
-      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Total Member Count', 'sample-block')
-    }, {
-      value: 'random',
-      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Random', 'sample-block')
+      value: 'modified',
+      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Last Modified', 'sample-block')
     }],
     onChange: value => updateSettings({
       postsSettings: {
@@ -345,7 +314,7 @@ const BlockSettings = () => {
         orderBy: value
       }
     })
-  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelRow, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelRow, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Posts per page', 'sample-block'),
     type: "number",
     value: settings.perPage,
@@ -444,6 +413,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _Context_postsStyles_context__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Context/postsStyles.context */ "./src/Context/postsStyles.context.js");
+/* harmony import */ var _images_default_post_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../images/default-post.png */ "./src/images/default-post.png");
+
 
 
 const Post = props => {
@@ -451,55 +422,29 @@ const Post = props => {
   const {
     postsLayout
   } = postStyle;
-  const postStatusLabels = {
-    public: 'Public',
-    private: 'Private',
-    hidden: 'Hidden'
-  };
-  const getPostStatus = status => {
-    return postStatusLabels[status] || '';
-  };
-  const getPostsMetas = post => {
-    let metas = [];
-    if (getPostStatus(post.status)) {
-      metas.push(getPostStatus(post.status));
-    }
-    if (post.members_count) {
-      metas.push(post.members_count + ' Members');
-    }
-    return metas;
-  };
-  const postTitle = props.post.title.rendered;
-  const postDescription = props.post.excerpt.rendered;
-  const postLink = props.post.link;
+  const {
+    post
+  } = props;
+  console.log(post);
+  const postTitle = post.title.rendered;
+  const postLink = post.link;
+  const featuredImg = post.featured_img ? post.featured_img : _images_default_post_png__WEBPACK_IMPORTED_MODULE_2__;
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "sample-block-post-block-item"
-  }, postsLayout === 'grid' && 0 !== props.post.featured_media && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "sample-block-post-block-item-cover"
+    className: "item is-collapsed"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "item-container "
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "item-cover"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "avatar"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
-    src: props.post.featured_media,
-    alt: postTitle
-  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "sample-block-post-block-item-content"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h4", {
-    className: "sample-block-post-block-item-title"
+    src: featuredImg
+  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "item-content"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
-    href: "javascript:void(0);",
-    "data-href": postLink
-  }, postTitle)), postsLayout === 'list' && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "sample-block-post-block-item-description"
-  }, postDescription), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "sample-block-post-block-item-meta"
-  }, getPostsMetas(props.post).length > 0 && getPostsMetas(props.post).map((meta, index) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-    key: index,
-    className: `sample-block-post-block-item-meta-item${meta.toLowerCase().replace(' ', '-')}`
-  }, meta, " "))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "sample-block-post-block-item-actions"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
-    href: "javascript:void(0);",
-    "data-href": postLink,
-    className: "sample-block-post-block-item-link"
-  }, "View Post"))));
+    className: "subhead-1 activator",
+    href: postLink
+  }, postTitle))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Post);
 
@@ -525,6 +470,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _Context_postsDetail_context__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../Context/postsDetail.context */ "./src/Context/postsDetail.context.js");
+/* harmony import */ var _Context_postsStyles_context__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../Context/postsStyles.context */ "./src/Context/postsStyles.context.js");
+
 
 
 
@@ -549,12 +496,22 @@ const Posts = () => {
       className: "sample-block-post-block-loading"
     }, totalPosts > 0 ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Spinner, null) : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('No post found.', 'sample-block'));
   }
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, posts.map((post, index) => {
+  const postStyle = (0,_Context_postsStyles_context__WEBPACK_IMPORTED_MODULE_6__.getPostsStyles)();
+  const {
+    postsLayout
+  } = postStyle;
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "container"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "gridlist-container"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: `gridlist ${postsLayout === 'grid' ? 'gridview' : 'listview'}`
+  }, posts.map((post, index) => {
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Post__WEBPACK_IMPORTED_MODULE_2__["default"], {
       key: index,
       post: post
     });
-  }));
+  })))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Posts);
 
@@ -717,6 +674,16 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 // extracted by mini-css-extract-plugin
 
+
+/***/ }),
+
+/***/ "./src/images/default-post.png":
+/*!*************************************!*\
+  !*** ./src/images/default-post.png ***!
+  \*************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "images/default-post.0d8980ca.png";
 
 /***/ }),
 
@@ -886,6 +853,18 @@ module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/tru
 /******/ 		};
 /******/ 	})();
 /******/ 	
+/******/ 	/* webpack/runtime/global */
+/******/ 	(() => {
+/******/ 		__webpack_require__.g = (function() {
+/******/ 			if (typeof globalThis === 'object') return globalThis;
+/******/ 			try {
+/******/ 				return this || new Function('return this')();
+/******/ 			} catch (e) {
+/******/ 				if (typeof window === 'object') return window;
+/******/ 			}
+/******/ 		})();
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
 /******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
@@ -900,6 +879,29 @@ module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/tru
 /******/ 			}
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
 /******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/publicPath */
+/******/ 	(() => {
+/******/ 		var scriptUrl;
+/******/ 		if (__webpack_require__.g.importScripts) scriptUrl = __webpack_require__.g.location + "";
+/******/ 		var document = __webpack_require__.g.document;
+/******/ 		if (!scriptUrl && document) {
+/******/ 			if (document.currentScript)
+/******/ 				scriptUrl = document.currentScript.src;
+/******/ 			if (!scriptUrl) {
+/******/ 				var scripts = document.getElementsByTagName("script");
+/******/ 				if(scripts.length) {
+/******/ 					var i = scripts.length - 1;
+/******/ 					while (i > -1 && (!scriptUrl || !/^http(s?):/.test(scriptUrl))) scriptUrl = scripts[i--].src;
+/******/ 				}
+/******/ 			}
+/******/ 		}
+/******/ 		// When supporting browsers where an automatic publicPath is not supported you must specify an output.publicPath manually via configuration
+/******/ 		// or pass an empty string ("") and set the __webpack_public_path__ variable from your code to use your own logic.
+/******/ 		if (!scriptUrl) throw new Error("Automatic publicPath is not supported in this browser");
+/******/ 		scriptUrl = scriptUrl.replace(/#.*$/, "").replace(/\?.*$/, "").replace(/\/[^\/]+$/, "/");
+/******/ 		__webpack_require__.p = scriptUrl;
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/jsonp chunk loading */
